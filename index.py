@@ -7,7 +7,7 @@ app.secret_key = "daniil_ultra_secret_777"
 
 # --- CONFIGURATION ---
 SUPABASE_URL = "https://ppxpwscmxwqrtxfeglnz.supabase.co"
-SUPABASE_KEY = "ТВОЙ_ANON_KEY" # <--- ВСТАВЬ СЮДА ANON KEY
+SUPABASE_KEY = "sb_secret_VoqPbCBtzcRPFpDbPb-EJw_qIKEa0O4" # <--- ВСТАВЬ СЮДА ANON KEY
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 ADMIN_PASS = "114511dandan,.,."
