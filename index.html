@@ -3,35 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2 ESO Hackathon</title>
+    <title>Enterprise Hackathon Solutions</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a1a; color: white; text-align: center; padding: 50px; }
-        .container { max-width: 600px; margin: auto; }
-        .card { background: #2d2d2d; padding: 20px; margin: 15px 0; border-radius: 15px; border: 1px solid #444; }
-        .btn { background: #0070f3; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .btn:hover { background: #0051ad; }
-        input { padding: 10px; border-radius: 5px; border: 1px solid #444; background: #333; color: white; width: 80%; margin-bottom: 10px; }
-        .prize-pool { color: #00ff00; font-size: 1.5rem; margin-bottom: 30px; }
+        :root { --bg: #000; --card: #111; --accent: #0071e3; --text: #f5f5f7; --subtext: #86868b; }
+        body { background: var(--bg); color: var(--text); font-family: -apple-system, sans-serif; margin: 0; line-height: 1.5; }
+        header { padding: 80px 20px; text-align: center; background: radial-gradient(circle at center, #1d1d1f 0%, #000 100%); }
+        h1 { font-size: 56px; font-weight: 700; margin: 0; letter-spacing: -2px; }
+        .prize-box { font-size: 28px; color: #00ff00; margin-top: 20px; font-weight: 600; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        
+        .card { background: var(--card); border-radius: 24px; padding: 40px; border: 1px solid #333; display: flex; flex-direction: column; }
+        .tech-tag { font-size: 12px; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 12px; }
+        .card h3 { font-size: 28px; margin: 0 0 16px 0; }
+        .description { color: var(--subtext); font-size: 16px; margin-bottom: 24px; flex-grow: 1; }
+        .project-lead { font-size: 14px; font-weight: 500; margin-bottom: 20px; border-top: 1px solid #222; padding-top: 20px; }
+        
+        input[type="email"] { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333; background: #000; color: white; margin-bottom: 12px; box-sizing: border-box; }
+        .btn-vote { width: 100%; background: var(--accent); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 600; cursor: pointer; }
+        .votes-badge { font-size: 32px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 2 ESO Hackathon</h1>
-        <div class="prize-pool">Prize Pool: {{ total_paid * 0.8 }}€</div>
-        <p>Pay 1€ to Daniil to activate your vote!</p>
 
-        {% for project in projects %}
+<header>
+    <h1>Innovation Summit 2024</h1>
+    <p style="color: var(--subtext)">Hosted by {{ organizer }} at Escuelas San José</p>
+    <div class="prize-box">Authorized Prize Pool: {{ total_pool }} €</div>
+</header>
+
+<div class="container">
+    <div class="grid">
+        {% for p in projects %}
         <div class="card">
-            <h2>{{ project.name }}</h2>
-            <p>Votes: <strong>{{ project.votes }}</strong></p>
+            <div class="tech-tag">{{ p.tech }}</div>
+            <h3>{{ p.name }}</h3>
+            <p class="description">{{ p.description }}</p>
+            <div class="project-lead">Project Lead: <strong>{{ p.lead }}</strong></div>
+            
+            <div class="votes-badge">{{ p.votes }} <small style="font-size: 12px; color: var(--subtext)">validated votes</small></div>
+            
             <form action="/vote" method="post">
-                <input type="hidden" name="project_id" value="{{ project.id }}">
+                <input type="hidden" name="project_id" value="{{ p.id }}">
                 <input type="email" name="email" placeholder="name.surname@alu.escuelassj.com" required>
-                <br>
-                <button type="submit" class="btn">Vote</button>
+                <button type="submit" class="btn-vote">Cast Ballot</button>
             </form>
         </div>
         {% endfor %}
     </div>
+</div>
+
+<footer style="text-align: center; padding: 40px; color: var(--subtext); font-size: 12px;">
+    FOR INTERNAL SCHOOL USE ONLY. PROPRIETARY TECHNOLOGY.
+</footer>
+
 </body>
 </html>
