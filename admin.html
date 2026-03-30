@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; padding: 50px; text-align: center; }
+        .box { background: #111; padding: 30px; border-radius: 20px; border: 1px solid #333; display: inline-block; width: 400px; }
+        input { width: 100%; padding: 12px; margin-bottom: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #28cd41; color: #fff; border: none; cursor: pointer; }
+        ul { text-align: left; font-size: 14px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Verify Payment</h2>
+        <form method="post">
+            <input type="email" name="email" placeholder="student@alu..." required>
+            <button type="submit">Activate 1€ Access</button>
+        </form>
+        <ul>
+            {% for u in users %}
+            <li>{{ u.email }} - {% if u.has_paid %}✅ PAID{% endif %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
